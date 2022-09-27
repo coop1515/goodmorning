@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="filemanage">
+
+	<insert id="insert" parameterType="filevo">
+		<![CDATA[
+		insert into fileUpload values(null, #{url }, #{comment },1,#{originFileName},now(),#{userNo},#{projectNo})
+		]]>
+	  	<selectKey keyProperty="no" resultType="int" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>
+	</insert>
+	
+	<select id="findFile"  parameterType="string" resultType="filevo">
+		<![CDATA[
+		  select no, url, comment,user_no as userNo, origin_file_name as originFileName, enable 
+		  from fileUpload where url=#{url }
+		]]>
+	</select>
+	
+	<select id="findProjectName" parameterType="int" resultType="filevo">
+		<![CDATA[
+		  select project.no as projectNo ,project_name as projectName, crew.name as crewName
+			from user, crew_user, crew, project 
+			where user.no=#{userNo} and user.no=crew_user.user_no and crew_user.crew_no = crew.no and crew.no = project.crew_no and project.enable=1
+			order by projectNo desc
+		]]>
+	</select>
+	
+	<select id="findProjectCount" parameterType="int" resultType="int">
+		<![CDATA[
+		  select count(*)
+			from user, crew_user, crew, project 
+			where user.no=#{userNo} and user.no=crew_user.user_no and crew_user.crew_no = crew.no and crew.no = project.crew_no;
+		]]>
+	</select>
+	
+	<select id="findFileList"  parameterType="int" resultType="filevo">
+		<![CDATA[
+		  select fileUpload.no as no, fileUpload.url as url, fileUpload.comment as comment, fileUpload.origin_file_name as originFileName, date as sendDate, fileUpload.user_no as userNo, fileUpload.project_no as projectNo
+		  from fileUpload
+		  where fileUpload.project_no=#{projectNo } and enable=true 
+		  order by no desc;
+		]]>
+	</select>
+	
+	<select id="findFileCount" parameterType="int" resultType="int">
+		<![CDATA[
+		  select count(*)
+		  from fileUpload where project_no=#{projectNo }
+		]]>
+	</select>
+	
+	<update id="updateEnable" parameterType="filevo">
+		<![CDATA[
+			update fileUpload 
+				set enable=false 
+				where url=#{url } and user_no=#{userNo}
+		]]>
+	</update>
+	
+	<update id="profileupdate" parameterType="uservo">
+		<![CDATA[
+		update user set profile_img=#{profileUrl} where no=#{no}
+		]]>
+	  	<selectKey keyProperty="no" resultType="int" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>		
+	</update>
+	
+	<select id="findProfileUrl" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			select profile_img as profileUrl from user where no=#{no }
+		]]>
+	</select>
+	
+</mapper>

@@ -1,0 +1,181 @@
+
+
+.demo-app{
+  width:83%;
+}
+
+.ReactModalPortal{
+  z-index: 10;
+}
+
+.fc-col-header-cell-cushion {
+  color: rgb(75, 69, 69);
+  text-decoration: none;
+}
+
+.fc-col-header-cell-cushion:hover {
+  color: rgb(75, 69, 69);
+  text-decoration: none;
+}
+
+.fc-daygrid-day-number{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.fc-daygrid-day-number:hover{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.fc-daygrid-event{
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0);
+  background: rgba(255, 255, 255, 0);
+  color:rgb(75, 69, 69);
+  
+}
+
+a[aria-label="일요일"]{
+  color: rgb(204, 87, 87);
+}
+
+a[aria-label="토요일"]{
+  color: rgb(104, 87, 204);
+}
+
+.fc-event{
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 5px;
+  margin:5px;
+}
+
+.modalButton{
+  background-color:'#34d6ce';
+  border-color:'white';
+}        
+
+.external-events{
+  padding: 10px;
+  width: 200px;
+  height: auto;
+  color: black;
+  border: 1px solid #ddd;
+  text-align: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.assign-checklist{
+  padding: 10px;
+
+}
+
+input{
+  margin-right: 5px;
+  margin-left: 7px;
+}
+
+.addTaskModal {
+  position: fixed;
+  top: 100px;
+  right: 20%;
+  bottom: 200px;
+  height: 700px;
+  width:700px;
+  left: 30%;
+  z-index: 100;
+  background-color: rgb(255, 255, 255);
+  padding: 60px;
+  border: 1px solid #00000027;
+  
+}
+
+.Overlay {
+  z-index: 100;
+
+}
+
+.addTaskBtn{
+  padding: "10px";
+  width: "90%";
+  height: "auto";
+  border: "0px solid #c8cacb";
+}
+
+.demo-app-calendar{
+  color: "black";
+  width: "900px";
+}
+
+.taskList{
+  border: 1px solid #6e6c6c;
+  width: 200px;
+  padding: 20px;
+  margin: auto;
+
+}
+.tasklist{
+  border: 1px solid #6e6c6c;
+  width: 200px;
+  padding: 20px;
+  margin: auto;
+
+}
+
+.cover-bar{
+  width:10px;
+  height:100%;
+  position:absolute;
+  top:0;
+  right:0;
+  -webkit-transition: all .5s;
+  opacity: 1;
+  /* 배경색을 상자색과 똑같이 맞춰준다 */
+  background-color:yellowgreen;
+}
+
+/* 중요한 부분 */
+.tasklist:hover .cover-bar {
+   opacity: 0;
+  -webkit-transition: all .5s;
+}
+
+.circle-picker{
+  width: 400px;
+}
+
+th.fc-timeline-slot{
+  color:red;
+}
+
+.fc .fc-button-primary{
+  background-color: #34d6ce !important; 
+  border-color:white !important;
+}
+
+.fc .fc-button-primary:disabled{
+  background-color: #34d6ce !important;
+  border-color:white !important;
+}
+
+.fc .fc-button-primary:hover{
+  background-color: #34d6ce !important;
+  border-color:white !important;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active{
+  background-color: #34d6ce !important;
+  border-color:white !important;
+}
+
+.fc .fc-button-primary::before{
+  background-color: #34d6ce !important;
+  border-color:white !important;
+}
+
+.fc-button:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem #34d6ce !important;
+  box-shadow: 0 0 0 0.2rem #34d6ce !important;
+}

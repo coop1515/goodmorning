@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+		<typeAliases>
+				<typeAlias type="com.douzone.goodmorning.vo.ChannelVo" alias="channelvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.CrewVo" alias="crewvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.ChatVo" alias="chatvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.UserVo" alias="uservo" />
+				<typeAlias type="com.douzone.goodmorning.vo.VerificationTokenVo" alias="verifivo" />
+				<typeAlias type="com.douzone.goodmorning.vo.TaskVo" alias="taskvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.GithubHookVo" alias="gitvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.JenkinsHookVo" alias="jenkinsvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.ProjectVo" alias="projectvo" />
+				<typeAlias type="com.douzone.goodmorning.vo.FileManagementVo" alias="filevo" />		
+					
+    </typeAliases>
+    
+		<mappers>
+				<mapper resource="mybatis/mappers/channel.xml" />
+				<mapper resource="mybatis/mappers/crew.xml" />
+				<mapper resource="mybatis/mappers/chat.xml" />
+				<mapper resource="mybatis/mappers/user.xml" />
+				<mapper resource="mybatis/mappers/verifi.xml" />
+				<mapper resource="mybatis/mappers/githubhook.xml" />
+				<mapper resource="mybatis/mappers/jenkinshook.xml" />
+				<mapper resource="mybatis/mappers/task.xml" />	
+				<mapper resource="mybatis/mappers/project.xml" />
+				<mapper resource="mybatis/mappers/filemanage.xml" />
+				<mapper resource="mybatis/mappers/auth.xml" />	
+		</mappers>
+</configuration>

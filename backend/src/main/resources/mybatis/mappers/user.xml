@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+			insert into user values(null, #{email }, #{name }, #{passwd }, now(),#{enable }, null, null, '/assets/default1.png')
+		]]>
+	</insert>
+	
+	<select id="existsById" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			select no,email,name from user where email=#{email }
+		]]>
+	</select>
+	
+	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+		select no ,email, name,enable,sign_up_date as signUpDate,job,phone as phoneNumber,profile_img as profileUrl
+		  from user
+		 where email=#{email }
+		   and passwd=#{passwd }
+		]]>
+	</select>
+	
+	<select id="findByEnable" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+		select no ,email, name,enable
+		  from user
+		 where email=#{email }
+		]]>
+	</select>
+	
+	<select id="findByUserNo" parameterType="string" resultType="int">
+		<![CDATA[
+		select no from user where email= #{email };
+		]]>
+	</select>
+	
+	<select id="findUserNameByNo" parameterType="long" resultType="string">
+		<![CDATA[
+		select name from user where no= #{userNo };
+		]]>
+	</select>
+	
+	<select id="findAllEmaillist" parameterType="map" resultType="uservo">
+		<![CDATA[
+		select a.no, a.name, a.email, a.sign_up_date as signUpDate, a.job, a.phone as phoneNumber , a.profile_img as profileUrl from user as a , channel_user as b, crew_user as c where a.no = b.user_no and a.no = c.user_no and b.channel_no = #{channelNo} and c.crew_no = #{crewNo};
+		]]>
+	</select>
+	
+	<select id="findAllEmaillistByChannelNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+		select b.no, b.name, b.email, b.sign_up_date as signUpDate, b.job, b.phone as phoneNumber , b.profile_img as profileUrl from channel_user as a, user as b where a.user_no= b.no and a.channel_no = #{channelNo};
+		]]>
+	</select>
+	
+	<select id="findUserByUserNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+		select no, email, name, sign_up_date as signUpDate, job, phone as phoneNumber, profile_img as profileUrl from user where no = #{userNo};
+		]]>
+	</select>
+	
+	<update id="updateEnable" parameterType="verifivo">
+		<![CDATA[
+			update user set enable=true where email=#{email }
+		]]>
+	</update>
+	
+	<update id="updatePw" parameterType="map">
+		<![CDATA[
+			update user set passwd=#{token } where email=#{email }
+		]]>
+	</update>
+	
+	<update id="updateUser" parameterType="uservo">
+		<![CDATA[
+			update user set name = #{name}, job = #{job}, phone = #{phoneNumber} where no = #{no};
+		]]>
+	</update>
+	
+	<update id="updateFileURL" parameterType="map">
+		<![CDATA[
+			update user set profile_img = #{fileURL} where no = #{userNo};
+		]]>
+	</update>
+	
+</mapper>

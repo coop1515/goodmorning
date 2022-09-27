@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project">	
+		<select id="findByCrew" parameterType="long" resultType="projectvo">
+				<![CDATA[
+				select a.no as id, a.project_name as projectName, a.start_date as start, a.end_date as end, a.descrition as description, a.status, b.name as crewName
+				from project a, crew b
+				where crew_no= #{crewNo}  and enable=1
+				and a.crew_no = b.no;
+				]]>
+		</select>
+		<select id="findByChannel" parameterType="map" resultType="projectvo">
+				<![CDATA[
+				select a.no as id, a.project_name as projectName, a.start_date as start, a.end_date as end, a.descrition as description, a.status, c.name as crewName,  c.no as crewNo, e.name as userName
+				from project a, channel b, crew c, crew_user d, user e
+				where b.no= #{channelNo} and a.enable=1 and a.crew_no = c.no and b.no = c.channel_no and c.no=d.crew_no and d.user_no=#{userNo} and d.user_no=e.no;
+				]]>
+		</select>
+		<select id="findCrewNoByName" parameterType="string" resultType="chatvo">
+				<![CDATA[
+				select crew_no as crewNo from 
+				project where project_name = #{projectName };
+				]]>
+		</select>
+		<select id="checkProjectNameByCrewNo" parameterType="map" resultType="long">
+				<![CDATA[
+				select count(project_name) from project 
+					where crew_no = #{crewNo } 
+				and project_name = #{projectName };
+				]]>
+		</select>
+		<insert id="insert" parameterType="projectvo" useGeneratedKeys="true" keyProperty="id">
+				<![CDATA[
+				insert into project value(null, #{projectName}, #{start}, #{end}, "test 설명",0,1, #{crewNo});
+				]]>
+		</insert>
+		
+		<update id="update" parameterType="projectvo">
+				<![CDATA[
+				update project set start_date=#{start}, end_date=#{end} where no=#{id}; 
+				]]>
+		</update>
+		
+		<delete id="delete" parameterType="long">
+				<![CDATA[
+				update project set enable=0 where no=#{id}; 
+				]]>
+		</delete>
+		
+
+</mapper>

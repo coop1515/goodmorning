@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="verifi">
+	<insert id="insert" parameterType="verifivo">
+		<![CDATA[
+			insert into verification values(null, #{token }, #{userNo })
+		]]>
+	</insert>
+	
+	<select id="findByToken" parameterType="verifivo" resultType="verifivo" >
+		<![CDATA[
+			select vf.no,vf.token,user.email 
+			 from verification as vf, user 
+			 where vf.user_no=user.no and token=#{token} and email=#{email}
+		]]>		
+	</select>
+	
+	<select id="findUserNo" parameterType="String" resultType="verifivo" >
+		<![CDATA[
+			select no from user where email=#{email }
+		]]>		
+	</select>
+	
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="channel">	
+		<select id="findAll" parameterType="map" resultType="channelvo">
+				<![CDATA[
+				select b.no as no, b.name as name 
+				from channel_user as a, channel as b 
+				where a.channel_no = b.no and a.user_no = #{userNo} and a.channel_no != #{channelNo};
+				]]>
+		</select>
+		
+		<select id="findFirst" parameterType="string" resultType="channelvo">
+				<![CDATA[
+				select c.no as no, c.name as name, b.no as crewNo, b.name as crewName 
+				from crew_user as a , crew as b, channel as c 
+				where b.no = a.crew_no and b.channel_no = c.no and user_no = #{userNo} 
+				order by a.lastIn desc limit 1;
+				]]>
+		</select>
+		
+		<select id="findByMasterChannelUserNo" parameterType="long" resultType="long">
+				<![CDATA[
+				select no 
+				from channel 
+				where master_channel_user_no = #{masterChannelUserNo}
+				order by no desc limit 1;
+				]]>
+		</select>
+		
+		<select id="getChangeChannel" parameterType="map" resultType="channelvo">
+				<![CDATA[
+				select c.no as no, c.name as name, b.no as crewNo, b.name as crewName, a.lastIn
+					from crew_user as a , crew as b, channel as c 
+				where b.no = a.crew_no 
+					and b.channel_no = c.no 
+					and user_no = #{userNo} 
+					and c.no = #{channelNo} 
+				order by lastIn desc limit 1;
+				]]>
+		</select>
+		
+		<select id="checkUser" parameterType="map" resultType="integer">
+				<![CDATA[
+				select count(*) from channel_user as a, user as b where b.email = #{email} and a.user_no = b.no and a.channel_no = #{channelNo};
+				]]>
+		</select>
+		
+		<select id="findUserNoByEmail" parameterType="string" resultType="integer">
+				<![CDATA[
+				select no from user where email = #{email};
+				]]>
+		</select>
+		
+		<select id="findNoByCrewNoAndUserNo" parameterType="map" resultType="long">
+				<![CDATA[
+				select a.channel_no as channelNo from 
+					crew as a, 
+				(select channel_no from channel_user where user_no = #{authUserNo}) as b, 
+					(select crew_no from crew_user where user_no = #{authUserNo}) as c 
+				where a.channel_no = b.channel_no 
+					and a.no = c.crew_no 
+				and a.no = #{crewNo};
+				]]>
+		</select>
+		
+		<select id="findMasterChannelUser" parameterType="long" resultType="channelVo">
+				<![CDATA[
+				select a.creation_date as creationDate, a.master_channel_user_no as masterChannelUserNo, b.name as name, b.email as email 
+				from channel as a, user as b 
+				where a.no = #{channelNo} and a.master_channel_user_no = b.no;
+				]]>
+		</select>
+		
+		<insert id="insert" parameterType="channelvo">
+				<![CDATA[
+				insert
+					into channel
+				values(null, #{name }, #{description }, now(), #{masterChannelUserNo });
+				]]>
+		</insert>
+		
+		<insert id="insertUser" parameterType="map">
+				<![CDATA[
+				insert into channel_user values (null, #{masterChannelUserNo }, #{channelNo }, now(), #{owner });
+				]]>
+		</insert>
+		
+		<update id="updateChannel" parameterType ="channelvo">
+			<![CDATA[
+				update channel set name = #{name} where no = #{no};
+				]]>
+		</update>
+</mapper>

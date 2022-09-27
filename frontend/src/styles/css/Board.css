@@ -1,0 +1,97 @@
+#board { margin:20px auto;	width:550px; }
+
+#search_form {
+	width:100%;
+	margin:50px auto 20px auto; 
+	text-align:center; 	 
+}
+
+
+.board-form {
+	margin-top:30px
+}
+
+.tbl-ex		{
+	width:100%;
+	margin:10px auto; 
+	border-collapse:collapse;
+	border-bottom:2px solid #F2F2F4;
+}
+
+.tbl-ex th, 
+.tbl-ex td	{ 
+	padding:8px;
+	text-align:center; 	 
+}
+
+.tbl-ex th	{ 
+	border-top:2px solid #F2F2F4;
+	border-bottom:2px solid #F2F2F4; 
+	background-color:#f7F7F8; 
+	font-size:1.1em; 
+	color:#000
+}
+
+.tbl-ex td {
+	border-top:1px solid #F2F2F4;
+	border-bottom:1px solid #F2F2F4;
+	background-color:#fff; 
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+	background-color: white;
+ }
+
+ .table-striped > tbody > tr:nth-of-type(2n+1) > td, .table-striped > tbody > tr:nth-child(2n) > th {
+	background-color: white;
+ }
+
+
+.board-form .tbl-ex td {
+	text-align:left
+}
+
+.board-form .tbl-ex td.label {
+	text-align:right;
+	font-weight:bold;
+	width:60px; 
+}
+
+.board-form .tbl-ex input[ name='title' ] {
+	width: 480px;
+}
+
+.board-form .tbl-ex textarea#content {
+	width: 470px;
+	height: 200px;
+	padding: 10px;
+	resize: none;
+	outline: none;	
+}
+
+.board-form select {
+	padding:5px;
+}
+
+
+tr.even td	{ background-color:#e8ecf6 }
+
+.tbl-ex a { text-decoration:none; font-weight:bold; }
+
+
+.board-form .bottom a,
+.board-form .bottom input[type="submit"] {
+	float:right; 
+	padding:10px 20px 10px 20px; 
+	border:1px solid #F2F2F4; 
+	font-weight:bold; 
+	background-color:#fff; 
+	color:#111;
+	cursor: pointer	
+}
+
+.board-form .bottom a {
+	margin-left: 10px;
+	padding:10px 20px 11px 20px 
+}
+

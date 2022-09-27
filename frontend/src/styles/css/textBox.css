@@ -1,0 +1,19 @@
+.ellipsis1 {
+	overflow:hidden;
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
+}
+
+.ellipsis2  {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.css-a5rdam-MuiGrid-root>.MuiGrid-item{
+  padding-left:7px;
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="task">	
+		<select id="findByProject" parameterType="long" resultType="taskvo">
+				<![CDATA[
+				select a.no as id, a.project_no as projectNo, a.user_no as userNo, b.name as userName, b.no as userNo, a.task_name as title, a.start_date as start, a.end_date as end, a.status as status, a.crew_no as crewNo, a.color as color, c.project_name as projectName
+				from task a, user b, project c where a.user_no =b.no and a.project_no =#{projectNo} and a.project_no=c.no;
+				]]>
+		</select>
+		<select id="findByCrew" parameterType="long" resultType="taskvo">
+				<![CDATA[
+				select a.no as id, a.project_no as projectNo, c.project_name as projectName, a.user_no as userNo, b.name as userName, b.no as userNo, a.task_name as title, a.start_date as start, a.end_date as end, a.status as status, a.crew_no as crewNo,  a.color as color 
+				from task a, user b, project c where a.user_no =b.no and a.project_no = c.no and a.crew_no = #{crewNo};
+
+				]]>
+		</select>
+		<select id="findByChannel" parameterType="long" resultType="taskvo">
+				<![CDATA[
+				select a.no as id, a.project_no as projectNo, a.user_no as userNo, b.name as userName, b.no as userNo, a.task_name as title, a.start_date as start, a.end_date as end, a.status as status, a.crew_no as crewNo, a.color as color, project_name as projectName
+				from task a, user b, crew c, channel d, project e where a.crew_no = c.no and c.channel_no = d.no and a.user_no = b.no and d.no = #{channelNo} and e.no=a.project_no; 
+				]]>
+		</select>
+		<insert id="insert" parameterType="taskvo">
+				<![CDATA[
+				insert into task value(null, #{projectNo}, #{userNo}, #{title}, #{start}, #{end}, #{status},#{color}, #{crewNo});
+				]]>
+		</insert>
+		
+		<update id="update" parameterType="taskvo">
+				<![CDATA[
+				update task set user_no=#{userNo}, project_no=#{projectNo}, task_name=#{title}, start_date=#{start}, end_date=#{end}, status=#{status}, color=#{color} where no=#{id};
+				]]>
+		</update>
+		<update id="projectUpdate" parameterType="long">
+				<![CDATA[
+				update project
+				set status = (select
+					avg(case
+						when status ='Todo' then 0
+						when status ='Doing' then 50
+						when status ='Done' then 100
+						else 0
+					end) as num
+				from task where project_no = #{projectNo}
+				group by project_no) where no=#{projectNo};
+				]]>
+		</update>
+		
+		<delete id="delete" parameterType="long">
+				<![CDATA[
+				delete from task where no=#{id};				
+				]]>
+		</delete>
+
+		<delete id="deleteByProjectNo" parameterType="long">
+				<![CDATA[
+				delete from task where project_no=#{projectNo};				
+				]]>
+		</delete>
+</mapper>

@@ -1,0 +1,28 @@
+.gantt-label{
+  width:fit-content;
+  text-align: right;
+  margin:10%;
+  padding:10%;
+  font-size: 1000px;
+  dominant-baseline:central;
+}
+[id^="google-visualization-errors"] {
+  display: none;
+}
+
+.rect{
+
+
+}
+.svg{
+
+
+}
+
+.ganttchart{
+}
+
+[id^="reactgooglegraph-1"] {
+
+
+}

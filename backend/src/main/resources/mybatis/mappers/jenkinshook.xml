@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jenkinshook">
+	<insert id="insert" parameterType="map">
+		<![CDATA[
+			insert into jenkinshook values(null, #{fullUrl }, #{buildNumber}, #{duration}, #{status}, #{branch}, #{commit}, now(), #{buildLog},#{projectNo})
+		]]>
+	</insert>
+	
+	<select id="findProjectNo" parameterType="String" resultType="jenkinsvo">
+		<![CDATA[
+			select no from project where project_name=#{projectName }
+		]]>
+	</select>
+	
+	<select id="findLastUpdate" resultType="jenkinsvo">
+		<![CDATA[
+			select a.no, a.full_url as fullUrl, a.build_number as buildNumber, a.duration, a.status, a.branch, a.commit, b.project_name as projectName, b.crew_no as crewNo
+				from jenkinshook as a, project as b 
+			where a.project_no = b.no 
+				order by no desc limit 1;
+		]]>
+	</select>
+	
+	<select id="findJenkinsChatInfo" resultType="jenkinsvo">
+		<![CDATA[
+			select jh.no, jh.full_url as fullUrl, jh.build_number as buildNumber, jh.duration, jh.status,jh.branch, jh.commit, jh.date, task.crew_no as crewNo, crew.master_crew_user_no as masterCrewUserNo 
+			 from jenkinshook as jh ,
+			 project as pj,
+			 task ,
+			 crew
+			 where jh.project_no = pj.no and pj.no =task.project_no and task.crew_no = crew.no
+			 order by jh.no desc limit 1;
+		]]>
+	</select>
+</mapper>

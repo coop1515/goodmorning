@@ -1,0 +1,40 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
+
+.css-mhc70k-MuiGrid-root{
+    width: fit-content;
+    font-family: 'Gamja Flower';
+
+
+}
+.css-10hburv-MuiTypography-root{
+    font-family: 'SongMyung';
+}
+.css-mhc70k-MuiGrid-root>.MuiGrid-item{
+    position: relative;
+    margin:20px;
+    height: auto;
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    font-family: 'SongMyung';
+}
+
+/* .css-mhc70k-MuiGrid-root>.MuiGrid-item:after{
+    content: "";
+    border-top: 16px solid rgb(255, 255, 255);
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    position: absolute;
+    top: 15px;
+    left: -18px;
+    font-family: 'SongMyung';
+
+} */
+
+.css-1p823my-MuiListItem-root:hover{
+    background-color: rgb(251, 251, 251);
+    font-family: 'SongMyung';
+
+}
+

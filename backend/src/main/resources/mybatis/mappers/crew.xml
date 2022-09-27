@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="crew">	
+
+		<select id="getAllCrew" parameterType="long" resultType="crewvo">
+				<![CDATA[
+				select a.crew_no as no from crew_user as a, user as b where a.user_no = b.no and b.no = #{userNo};
+				]]>
+		</select>
+		
+		<select id="findAll" parameterType="map" resultType="crewvo">
+				<![CDATA[
+				select a.no, a.channel_no as channelNo, a.master_crew_user_no as masterCrewUserNo, 
+				a.creation_date as creationDate, a.name 
+				from crew as a, crew_user as b  
+				where a.channel_no = #{channelNo} and b.crew_no = a.no and b.user_no = #{userNo};
+				]]>
+		</select>
+		
+		<select id="findCrewUser" parameterType="long" resultType="map">
+				<![CDATA[
+				select a.user_no as userNo, b.name as userName, b.profile_img as profileUrl from channel_user a, user b where channel_no = #{crewNo} and a.user_no = b.no;
+				]]>
+		</select>
+		
+		<select id="findMaster" parameterType="map" resultType="Long">
+				<![CDATA[
+				select no from crew where channel_no = #{channelNo} and master_crew_user_no = #{userNo} order by no desc limit 1;
+				]]>
+		</select>
+		
+		<select id="findMasterByNo" parameterType="string" resultType="Long">
+				<![CDATA[
+				select master_crew_user_no from crew 
+					where no = (select crew_no from project 
+												where project_name = #{projectName }
+											);
+				]]>
+		</select>
+		
+		<select id="findCrewNoByChannelNo" parameterType="string" resultType="Long">
+				<![CDATA[
+				select no from crew where channel_no = #{channelNo} order by no limit 1;
+				]]>
+		</select>
+		
+		<select id="findNoByCrewNo" parameterType="long" resultType="crewvo">
+				<![CDATA[
+				select user_no as userNo from crew_user where crew_no = #{crewNo};
+				]]>
+		</select>
+		
+		<select id="checkCrewUser" parameterType="map" resultType="integer">
+				<![CDATA[
+				select count(*) from crew_user where user_no = #{userNo} and crew_no = #{crewNo};
+				]]>
+		</select>
+		
+		<select id="findMasterCrewUser" parameterType="long" resultType="crewvo">
+				<![CDATA[
+				select a.creation_date as creationDate, a.master_crew_user_no as masterCrewUserNo, b.name as name, b.email as email 
+				from crew as a, user as b 
+				where a.no = #{crewNo} and a.master_crew_user_no = b.no;
+				]]>
+		</select>
+		
+		<select id="findUserNameByUserEmail" parameterType="string" resultType="uservo">
+				<![CDATA[
+				select name from user where email = #{email};
+				]]>
+		</select>
+		
+		<select id="findDuplicationName" parameterType="crewvo" resultType="integer">
+				<![CDATA[
+				select count(*) from crew where channel_no = #{channelNo} and name = #{name};
+				]]>
+		</select>
+		
+		<insert id="insertcrewuser" parameterType="crewvo">
+				<![CDATA[
+				insert into crew_user values (null, #{crewNo}, #{userNo}, 1, now(), #{owner}, now());
+				]]>
+		</insert>
+
+		<insert id="insert" parameterType="crewvo">
+				<![CDATA[
+				insert
+					into crew 
+				values(null, #{channelNo }, #{masterCrewUserNo }, now(), #{name})
+				]]>
+		</insert>
+		
+		<update id="updateLastIn" parameterType ="map">
+		<![CDATA[
+				update crew_user set lastIn = now() where crew_no = #{crewNo} and user_no= #{userNo};
+				]]>
+		</update>
+		
+		<update id="updateCrewName" parameterType ="crewvo">
+			<![CDATA[
+				update crew set name = #{name} where no = #{no};
+				]]>
+		</update>
+		
+		<delete id="deleteCrewUser" parameterType="map">
+			<![CDATA[
+				delete from crew_user where crew_no = #{crewNo} and user_no = #{userNo};
+				]]>
+		</delete>
+</mapper>

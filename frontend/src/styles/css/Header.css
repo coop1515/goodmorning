@@ -1,0 +1,30 @@
+.body{
+    background-image: '../../images/Animation.gif';
+}
+.channel {
+    height:60px;
+    white-space:no-wrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.crew {
+    height: 60px;
+}
+
+.searchcard{
+
+}
+
+.searchcard:hover{
+    background-color:rgb(241, 239, 239);
+}
+
+.searchbtn{
+    border:0px;
+}
+
+.searchbtn:hover{
+    background-color: #19bacc;
+    border:0px;
+}
